@@ -13,6 +13,11 @@ class Router{
         $this->rutasGET[$url] = $fn;
     }
 
+    public function post($url, $fn){ 
+
+        $this->rutasPOST[$url] = $fn;
+    }
+
     public function comprobarRutas(){
 
         $urlActual = $_SERVER["PATH_INFO"] ?? "/"; //para las demas paginas. si esta en la principal asigna /
@@ -20,6 +25,9 @@ class Router{
 
        if($metodo === "GET"){
            $fn = $this->rutasGET[$urlActual] ?? NULL; //si noe xsite la pagina asociada, asgina null
+       }
+       else{
+           $fn = $this->rutasPOST[$urlActual] ?? NULL;
        }
 
        if($fn){

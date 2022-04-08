@@ -3,6 +3,8 @@
 namespace Controllers;
 use MVC\Router;
 use Model\Propiedad;
+use Model\Vendedor;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 class PropiedadController{
@@ -12,7 +14,7 @@ class PropiedadController{
 
         //propiedades a pasar
         $propiedades = Propiedad::all();
-        $resultado = null;
+        $resultado = $_GET["resultado"] ?? null; //placeholder. busca el valor. si no existe le pone null. PARA MOSTRAR MENSJAES CONDICIONALES
 
 
         $router->render("propiedades/admin",[
@@ -22,9 +24,62 @@ class PropiedadController{
         ]);
     }
 
-    public static function crear(){
+    public static function crear(Router $router){
 
-        echo "crear propiedad";
+        //objeto vacio para pasarle los parametros al formulario
+
+        $propiedad = new Propiedad;
+        $vendedores = Vendedor::all(); //objeto con todos los vendedores
+
+         //variable de errores vacia para evitar undefined. se llena en el post en caso de presentar un error
+        $errores = Propiedad::getErrores();
+
+        //SOPORTE PARA POST
+
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+
+            /*Crea una nueva instancia */
+            $propiedad = new Propiedad($_POST["propiedad"]);
+
+            //generar un nombre unico
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+
+            //Set a la imagen
+            //Realiza un resize a la imagen con intervention
+            
+
+            if($_FILES["propiedad"]["tmp_name"]["imagen"]){
+                $image = Image::make($_FILES["propiedad"]["tmp_name"]["imagen"])->fit(800,600);
+                $propiedad->setImagen($nombreImagen);
+                
+            }
+            //validacion
+            $errores = $propiedad->validar();
+            
+
+            if(empty($errores)){
+
+                //crear carpeta para subir imagenes
+                if(!is_dir(CARPETAS_IMAGENES)){
+                mkdir(CARPETAS_IMAGENES);
+                }
+
+                /*Subida de archivos*/
+                //guarda la imagen en el servidor
+                $image->save(CARPETAS_IMAGENES . $nombreImagen);
+
+                //guarda en la base de datos
+                $resultado = $propiedad->guardar();
+   
+             }
+        }
+
+        $router->render("propiedades/crear",[
+            "propiedad" => $propiedad,
+            "vendedores" => $vendedores,
+            "errores" => $errores
+        ]
+        );
     }
 
     public static function actualizar(){

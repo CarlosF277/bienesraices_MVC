@@ -36,7 +36,7 @@ class Router{
 
        if($fn){
            //La URL existe y hay una funcion asociada
-           //call_user_func($fn); //manda a llamar una funcion cuando no se sabe como se llama
+           //call_user_func($fn); //manda a llamar una funcion cuando no se sabe como se llama. en $this serian los parametros a pasar a la funcion
             call_user_func($fn,$this);
                }
        else{

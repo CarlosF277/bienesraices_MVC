@@ -1,6 +1,5 @@
 <main class="contenedor seccion">
-        <h1>Crear</h1>
-
+        <h1>Actualizar propiedad</h1>
 
         <?php
         //mostrando los mensajes de error
@@ -14,6 +13,7 @@
         <?php endforeach; ?>
 
         <a href="/admin/index.php" class = "boton boton-verde">Volver</a>
+
 
         <form class="formulario" method="POST" enctype="multipart/form-data">
 

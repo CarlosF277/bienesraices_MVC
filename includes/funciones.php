@@ -65,3 +65,17 @@ function mostrarNotificacion($codigo){
 
     return $mensaje;
 }
+
+//Valida o redirecciona
+
+function validarRedireccionar(string $url){
+   //obitiene el id pasado desde la url y valida que sea valido
+  $id = $_GET["id"];
+  $id = filter_var($id, FILTER_VALIDATE_INT);
+
+  if(!$id){
+    header("Location: ${url}");
+  }
+
+  return $id;
+}

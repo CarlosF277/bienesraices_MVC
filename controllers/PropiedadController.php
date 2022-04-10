@@ -14,12 +14,17 @@ class PropiedadController{
 
         //propiedades a pasar
         $propiedades = Propiedad::all();
+
+        //vendedores a pasar
+
+        $vendedores = Vendedor::all();
         $resultado = $_GET["resultado"] ?? null; //placeholder. busca el valor. si no existe le pone null. PARA MOSTRAR MENSJAES CONDICIONALES
 
 
         $router->render("propiedades/admin",[
             "propiedades" => $propiedades,
-            "resultado" => $resultado
+            "resultado" => $resultado,
+            "vendedores" =>$vendedores
 
         ]);
     }
@@ -82,8 +87,78 @@ class PropiedadController{
         );
     }
 
-    public static function actualizar(){
+    public static function actualizar(Router $router){
 
-        echo "actualziar propieadd";
+        $id = validarRedireccionar("/admin");
+
+        $propiedad = Propiedad::find($id);
+
+        $errores = Propiedad::getErrores();
+
+        $vendedores = Vendedor::all(); //objeto con todos los vendedores
+
+         //Ejecutar el codigo despues de que el usuario envia el formulario
+        if ($_SERVER["REQUEST_METHOD"] === "POST"){
+
+            //asignar los atributos en el arreglo args
+            $args = $_POST["propiedad"];
+            
+            $propiedad->sincronizar($args);
+        
+            //Validacion
+            $errores = $propiedad->validar();
+        
+            //Subida de archivos
+        
+            //generar un nombre unico
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+        
+            if($_FILES["propiedad"]["tmp_name"]["imagen"]){
+            $image = Image::make($_FILES["propiedad"]["tmp_name"]["imagen"])->fit(800,600);
+            $propiedad->setImagen($nombreImagen);
+        }
+        
+            if(empty($errores)){
+            
+            if($_FILES["propiedad"]["tmp_name"]["imagen"]){
+            //Almacenar la imagen
+            $image->save(CARPETAS_IMAGENES . $nombreImagen);
+                //Almacenar imagen 
+            }
+            $propiedad->guardar();
+            
+            }
+        }
+
+        $router->render("/propiedades/actualizar", [
+            "propiedad" => $propiedad,
+            "errores" => $errores,
+            "vendedores" => $vendedores
+        ]);
+    }
+
+    public static function eliminar(){
+
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+
+
+            //VALIDAR ID
+            $id = $_POST["id"];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+        
+            if($id){
+              $tipo = $_POST["tipo"];
+              
+              if(validarTipoContent($tipo)){
+                //Compara lo que vamos a eliminar
+                    //elimina el archivo
+                    $propiedad = Propiedad::find($id);
+                    $propiedad->eliminar();
+                
+        
+              } 
+            }
+        
+          }
     }
 }

@@ -23,12 +23,16 @@ class Router{
         $urlActual = $_SERVER["PATH_INFO"] ?? "/"; //para las demas paginas. si esta en la principal asigna /
         $metodo = $_SERVER["REQUEST_METHOD"];
 
+        
+
        if($metodo === "GET"){
            $fn = $this->rutasGET[$urlActual] ?? NULL; //si noe xsite la pagina asociada, asgina null
        }
        else{
            $fn = $this->rutasPOST[$urlActual] ?? NULL;
        }
+
+       
 
        if($fn){
            //La URL existe y hay una funcion asociada
@@ -48,7 +52,8 @@ class Router{
         foreach($datos as $key => $value){
             $$key = $value; //$$variable de variable, mantiene el nombre pero no pierde valor
         }
-
+        
+    
         ob_start(); //inicia un almacenamiento en memoria
         include __DIR__ . "/views/$view.php";
 

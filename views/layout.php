@@ -39,10 +39,10 @@
                         <a href="/blog">Blog</a>
                         <a href="/contacto">Contacto</a>
                         <?php if($auth): ?>
-                            <a href="/admin/index.php">Administrador</a>
+                            <a href="/admin">Administrador</a>
                             <a href="/cerrar-sesion.php">Cerrar sesion</a>
                         <?php else: ?>
-                            <a href="/login.php">Iniciar sesion</a>
+                            <a href="/login">Iniciar sesion</a>
                         <?php endif;?>
                     </nav>
                 </div>

@@ -72,6 +72,8 @@ class PaginasController {
 
     public static function contacto (Router $router){
 
+        $mensaje = null; //variable para mostrar el estado del formulario despues de enviarlo
+
         if ($_SERVER["REQUEST_METHOD"] === "POST"){
 
             //texto a enviar desde POST, desde el array contacto que contiene definido en el form
@@ -104,15 +106,27 @@ class PaginasController {
             $contenido  = "<html>";
             $contenido .= "<p> Tienes un nuevo mensaje </p> ";
             $contenido .= "<p> Nombre: " . $respuestas['nombre'] . "</p> ";
-            $contenido .= "<p> E- Mail: " . $respuestas['email'] . "</p> ";
-            $contenido .= "<p> Telefono: " . $respuestas['telefono'] . "</p> ";
+           
+
+            //Enviar de forma condicional algunos campos de mail o telefono
+
+            if($respuestas["contacto"] === "telefono"){
+
+                $contenido .= "<p> Eligio ser contactado por telefono </p>";
+                $contenido .= "<p> Telefono: " . $respuestas['telefono'] . "</p> ";
+                $contenido .= "<p> Fecha contacto: " . $respuestas['fecha'] . "</p> ";
+                $contenido .= "<p> Hora: " . $respuestas['hora'] . "</p> ";
+            }
+            else {
+                $contenido .= "<p> Eligio ser contactado por e-mail </p>";
+                $contenido .= "<p> E- Mail: " . $respuestas['email'] . "</p> ";
+            }
+
             $contenido .= "<p> Mensaje: " . $respuestas['mensaje'] . "</p> ";
             $contenido .= "<p> Vende o compra: " . $respuestas['tipo'] . "</p> ";
             $contenido .= "<p> Precio o presupuesto: $ " . $respuestas['precio'] . "</p> ";
-            $contenido .= "<p> Nombre:" . $respuestas['mensaje'] . "</p> ";
             $contenido .= "<p> Prefiere ser contactado por: " . $respuestas['contacto'] . "</p> ";
-            $contenido .= "<p> Fecha contacto: " . $respuestas['fecha'] . "</p> ";
-            $contenido .= "<p> Hora: " . $respuestas['hora'] . "</p> ";
+
 
             $contenido .= "</html>";
 
@@ -122,17 +136,17 @@ class PaginasController {
 
             //Enviar el email
             if($mail->send()){
-                echo "Mensaje enviado correctamente";
+                $mensaje = "Mensaje enviado correctamente";
             }
             else{
-                echo "El mensaje no se pudo enviar";
+                $mensaje = "Mensaje enviado correctamente";
             }
 
             
         }
 
         $router->render("paginas/contacto", [
-
+            "mensaje" => $mensaje
         ]);
     }
 }

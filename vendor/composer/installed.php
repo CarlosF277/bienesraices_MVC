@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9c8a892df157ca8ed3b854f793074216dadadd33',
+        'reference' => '90864ffc9f4a9ad9874953bd4bdad250fe3b9bf1',
         'name' => 'cfsm/bienesraices',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9c8a892df157ca8ed3b854f793074216dadadd33',
+            'reference' => '90864ffc9f4a9ad9874953bd4bdad250fe3b9bf1',
             'dev_requirement' => false,
         ),
         'guzzlehttp/psr7' => array(
@@ -35,6 +35,15 @@
             'install_path' => __DIR__ . '/../intervention/image',
             'aliases' => array(),
             'reference' => '744ebba495319501b873a4e48787759c72e3fb8c',
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.6.0',
+            'version' => '6.6.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'reference' => 'e43bac82edc26ca04b36143a48bde1c051cfd5b1',
             'dev_requirement' => false,
         ),
         'psr/http-factory' => array(

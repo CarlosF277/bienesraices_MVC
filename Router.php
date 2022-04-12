@@ -21,6 +21,7 @@ class Router{
     public function comprobarRutas(){
 
         $urlActual = $_SERVER["PATH_INFO"] ?? "/"; //para las demas paginas. si esta en la principal asigna /
+    
         $metodo = $_SERVER["REQUEST_METHOD"];
 
         

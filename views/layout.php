@@ -40,7 +40,7 @@
                         <a href="/contacto">Contacto</a>
                         <?php if($auth): ?>
                             <a href="/admin">Administrador</a>
-                            <a href="/cerrar-sesion.php">Cerrar sesion</a>
+                            <a href="/logout">Cerrar sesion</a>
                         <?php else: ?>
                             <a href="/login">Iniciar sesion</a>
                         <?php endif;?>

@@ -20,9 +20,27 @@ class Router{
 
     public function comprobarRutas(){
 
+        //verifica si el acceso esta autenticado
+        session_start();
+
+        $auth = $_SESSION["login"] ?? null;
+
+        //Arreglo de rutas protegidas
+        $rutas_protegidas = ["/admin", "/propiedades/crear", "/propiedades/actualizar",
+        "/propiedades/eliminar", "/vendedores/crear", "/vendedores/actualizar", "/vendedores/eliminar"];
+
+
+
         $urlActual = $_SERVER["PATH_INFO"] ?? "/"; //para las demas paginas. si esta en la principal asigna /
     
         $metodo = $_SERVER["REQUEST_METHOD"];
+
+        //proteger las rutas. revisa si el elemento protegido esta en el array
+        if(in_array($urlActual, $rutas_protegidas) && !$auth){ //busca /admin en el arreglo de rutas protegidas y si el usuario no esta auneticasdo
+
+            //envia al home
+            header("Location: /");
+        }
 
         
 
@@ -39,6 +57,7 @@ class Router{
            //La URL existe y hay una funcion asociada
            //call_user_func($fn); //manda a llamar una funcion cuando no se sabe como se llama. en $this serian los parametros a pasar a la funcion
             call_user_func($fn,$this);
+
                }
        else{
            echo "La pagina no existe";

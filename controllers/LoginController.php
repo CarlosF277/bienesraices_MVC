@@ -11,7 +11,39 @@ class LoginController{
         $errores = [];
 
         if($_SERVER["REQUEST_METHOD"] === "POST"){
-            echo "Autenticando";
+            
+            $auth = new Admin($_POST);
+
+            $errores = $auth->validar();
+
+            if(empty($errores)){
+                //Verificar si el usuario existe
+                $resultado = $auth->existeUsuario();
+
+                if(!$resultado){
+                    //Verificar si el usuario existe o no (mensaje de error)
+                    $errores = Admin::getErrores();
+                }
+                else{
+                    //Verificar el password
+                    $autenciado = $auth->comprobarPassword($resultado);
+
+                    if($autenciado){
+                        //Autenticar al usuario
+                        $auth->autenticar();
+                    } 
+                    else{
+                        //obtener los errores
+                        $errores = Admin::getErrores();
+                    }
+                    
+                }
+
+                
+
+
+                //autenticar al usuario
+            }
         }
 
 
@@ -23,6 +55,12 @@ class LoginController{
     }
 
     public static function logout(){
+
+        //session_start();
+
+        $_SESSION = []; //elimina los datos de session para cerrar sesion
+
+        header("Location: /admin");
 
 
     }

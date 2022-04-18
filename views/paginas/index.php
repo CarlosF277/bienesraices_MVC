@@ -1,5 +1,5 @@
 <main class="contenedor seccion">
-        <h1>Mas sobre nosotros</h1>
+        <h2 data-cy="heading-nosotros">Mas sobre nosotros</h1>
 
         <?php include "iconos.php"; ?>
 
@@ -13,11 +13,11 @@
         ?>
 
         <div class="alinear-derecha">
-            <a href="/propiedades" class="boton-verde">Ver todas</a>
+            <a data-cy="todas-propiedades" href="/propiedades" class="boton-verde">Ver todas</a>
         </div>
     </section>
 
-    <section class="imagen-contacto">
+    <section data-cy="imagen-contacto" class="imagen-contacto">
         <h2>Encuentra la casa de tus sueños</h2>
         <p>LLena el formulario y nos contactaremos contigo</p>
         <a href="/contacto" class="boton-amarillo-inline">Contactanos</a>

@@ -52,7 +52,7 @@
             <?php 
 
                 if($inicio){
-                    echo "<h1>Venta de departamentos  y casas exclusivos de lujo  </h1>";
+                    echo "<h1 data-cy='heading-sitio'>Venta de departamentos  y casas exclusivos de lujo  </h1>";
                 }
 
             ?>

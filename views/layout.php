@@ -33,7 +33,7 @@
                 </div>
                 <div class="derecha">
                     <img class="dark-mode-boton" src="/build/img/dark-mode.svg">
-                    <nav class="navegacion">
+                    <nav data-cy="navegacion-header" class="navegacion">
                         <a href="/nosotros">Nosotros</a>
                         <a href="/propiedades">Anuncios</a>
                         <a href="/blog">Blog</a>
@@ -66,7 +66,7 @@
     <footer class="footer seccion">
         <div class="contenedor contenido-footer">
             
-            <nav class="navegacion">
+            <nav data-cy="navegacion-footer" class="navegacion">
                 <a href="/nosotros">Nosotros</a>
                 <a href="/propiedades">Anuncios</a>
                 <a href="/blog">Blog</a>
@@ -75,7 +75,7 @@
             
         </div>
 
-        <p class="copyright">
+        <p data-cy="copyright" class="copyright">
             Todos los derechos reservados <?php echo date("Y"); ?> &copy
         </p>
     </footer>

@@ -79,4 +79,14 @@ describe("Carga la pagina principal", ()=>{
 
     });
 
+    it("Prueba los testimoniales y el blog", () => {
+        cy.get('[data-cy="blog"]').should("exist");
+        cy.get('[data-cy="blog"]').find("h3").invoke("text").should("equal", "Nuestro blog");
+        cy.get('[data-cy="blog"]').find("h3").invoke("text").should("not.equal", "Testimoniales");
+        cy.get('[data-cy="blog"]').find("img").should("have.length", 2);
+
+        cy.get('[data-cy="testimoniales"]').should("exist");
+        cy.get('[data-cy="testimoniales"]').find("h3").invoke("text").should("not.equal", "Nuestro blog");
+    });
+
 });
